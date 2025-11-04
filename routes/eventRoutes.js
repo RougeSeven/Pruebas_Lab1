@@ -12,7 +12,7 @@ router.get('/events', async (req, res) => {
     const events = await event.find();
     res.json(events);
   } catch (err) {
-    res.status(500).json({ message: err, message });
+    res.status(500).json({ messageInfo: err.message });
   }
 });
 
@@ -21,7 +21,7 @@ router.get('/event/:id', async (req, res) => {
     const retrievedEvent = await event.findOne({ eventId: req.params.id });
     res.json(retrievedEvent);
   } catch (err) {
-    res.status(500).json({ message: err, message });
+    res.status(500).json({ messageInfo: err.message });
   }
 });
 
@@ -32,7 +32,7 @@ router.get('/events/searchByProcess/:processId', async (req, res) => {
       .sort({ orderIndex: 'asc' });
     res.json(events);
   } catch (err) {
-    res.status(500).json({ message: err, message });
+    res.status(500).json({ messageInfo: err.message });
   }
 });
 
@@ -48,7 +48,7 @@ router.get('/events/searchByDateRange', async (req, res) => {
   const start = new Date(start_date);
   const end = new Date(end_date);
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+  if (Number.isNan(start.getTime()) || Number.isNan(end.getTime())) {
     return res.status(400).json({
       message: 'Fechas inválidas. Usa el formato YYYY-MM-DD o ISO 8601',
     });
@@ -63,7 +63,7 @@ router.get('/events/searchByDateRange', async (req, res) => {
     });
     res.status(200).json(events);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ messageInfo: err.message });
   }
 });
 
@@ -172,7 +172,7 @@ router.put('/event/update/:id', authenticateToken, async (req, res) => {
     );
     res.status(200).json(update);
   } catch (err) {
-    res.status(500).json({ message: err, message });
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -181,7 +181,7 @@ router.delete('/events/delete/:id', authenticateToken, async (req, res) => {
     const eventDeleted = await event.deleteOne({ eventId: req.params.id });
     res.status(200).json(eventDeleted);
   } catch (err) {
-    res.status(500).json({ message: err, message });
+    res.status(500).json({ message: err.message });
   }
 });
 

@@ -19,7 +19,7 @@ router.get('/processes', async (req, res) => {
 router.get('/process/:id', async (req, res) => {
   try {
     const processId = Number(req.params.id);
-    if (isNaN(processId)) {
+    if (Number.isNan(processId)) {
       return res
         .status(400)
         .json({ message: 'El processId debe ser numérico' });
@@ -179,7 +179,7 @@ router.get(
     }
     const start = new Date(start_date);
     const end = new Date(end_date);
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    if (Number.isNan(start.getTime()) || Number.isNan(end.getTime())) {
       return res.status(400).json({
         error: 'Formato de fecha inválido. Usa YYYY-MM-DD o ISO 8601.',
       });

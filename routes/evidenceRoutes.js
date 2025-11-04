@@ -10,7 +10,9 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'), // carpeta uploads/
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
 });
-const upload = multer({ storage });
+const upload = multer({ storage, limits: {
+     fileSize: 8000000 // Compliant: 8MB
+  } });
 
 // 🔐 Crear evidencia (protegido)
 router.post('/evidence', authenticateToken, async (req, res) => {
@@ -67,7 +69,7 @@ router.get('/evidences/event/:eventId', async (req, res) => {
 router.get('/evidences/process/:processId', async (req, res) => {
   try {
     const processId = Number(req.params.processId);
-    if (isNaN(processId)) {
+    if (Number.isNan(processId)) {
       return res.status(400).json({ message: 'processId debe ser un número' });
     }
 

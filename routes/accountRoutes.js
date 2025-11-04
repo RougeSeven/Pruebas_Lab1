@@ -1,6 +1,7 @@
 const express = require('express');
 const account = require('../models/Account');
 const bcrypt = require('bcrypt');
+const crypto=require('crypto');
 const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('../middleware/authenticateToken'); // ✅ añadido
 const router = express.Router();
@@ -111,11 +112,7 @@ router.post('/account/login', async (req, res) => {
 
 // 🔁 Recuperación de contraseña (sin protección de token)
 function generateResetToken(length = 32) {
-  const chars =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from({ length }, () =>
-    chars.charAt(Math.floor(Math.random() * chars.length))
-  ).join('');
+  return crypto.randomBytes(length);
 }
 
 router.post('/accounts/requestPasswordReset', async (req, res) => {
