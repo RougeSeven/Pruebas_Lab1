@@ -10,6 +10,7 @@ router.get('/auditoryLogs', async (req, res) => {
     const activityLogs = await auditoryLog.find();
     res.status(200).json(activityLogs);
   } catch (err) {
+    console.log("Server Error, failed to retrieve logs!");
     res.status(500).json({ error: 'Error al recuperar los registros de actividad' });
   }
 });
@@ -17,12 +18,13 @@ router.get('/auditoryLogs', async (req, res) => {
 router.get('/auditoryLog/:id', async (req, res) => {
   try {
     const auditoryLogObject = await auditoryLog.findOne({ auditoryLogId: req.params.id });
-    if (auditoryLogObject != null) {
+    if (auditoryLogObject) {
       res.status(200).json(auditoryLogObject);
     } else {
       res.status(404).json({ error: 'Registro de actividad no encontrado' });
     }
   } catch (err) {
+    console.log("Server Error, could not retrieve log!");
     res.status(500).json({ error: 'Error al buscar el registro' });
   }
 });
@@ -36,6 +38,7 @@ router.get('/auditoryLogs/user/:id', async (req, res) => {
       res.status(200).json({ message: 'No hay actividad registrada del usuario' });
     }
   } catch (err) {
+    console.log("Server Error, failed to find logs!");
     res.status(500).json({ error: 'Error al buscar los registros' });
   }
 });
@@ -49,6 +52,7 @@ router.get('/auditoryLogs/process/:id', async (req, res) => {
       res.status(200).json({ error: 'No se ha detectado actividad sobre este proceso' });
     }
   } catch (err) {
+    console.log("Server Error, failed to find log!");
     res.status(500).json({ error: 'Error al buscar el registro' });
   }
 });
@@ -67,6 +71,7 @@ router.post('/auditoryLog', authenticateToken, async (req, res) => {
     const insertedLog = await newAuditoryLog.save();
     res.status(201).json(insertedLog);
   } catch (err) {
+    console.log("Server Error, failed to create log!");
     res.status(500).json({ message: err.message });
   }
 });
@@ -83,6 +88,7 @@ router.put('/auditoryLog/:id', authenticateToken, async (req, res) => {
     );
     res.status(201).json(updatedLog);
   } catch (err) {
+    console.log("Server Error, failed to update log!");
     res.status(500).json({ message: 'Error al actualizar el log' });
   }
 });
@@ -92,7 +98,8 @@ router.delete('/auditoryLog/:id', authenticateToken, async (req, res) => {
     const deleteConfirmation = await auditoryLog.findOneAndDelete({ auditoryLogId: req.params.id });
     res.status(201).json({ message: 'Log eliminado con éxito.' }, deleteConfirmation);
   } catch (err) {
-    res.status(500).json({ message: 'Error al actualizar el log' });
+    console.log("Server Error, failed to delete log!");
+    res.status(500).json({ message: 'Error al eliminar el log' });
   }
 });
 

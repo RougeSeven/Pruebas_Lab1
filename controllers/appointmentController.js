@@ -11,12 +11,12 @@ async function getAppointmentsByMonth(accountId, month, year)
     const monthAppointments=[];
     let appointmentDate;
     const appointmentList= await appointment.find({accountId: accountId});
-        for(i=0;i<appointmentList.length;i++)
+        for(let appointment of appointmentList)
         {
-            appointmentDate=new Date(appointmentList[i].date);
+            appointmentDate=new Date(appointment.date);
             if(dateFns.isSameMonth(dateComparer, appointmentDate))
             {
-                monthAppointments.push(appointmentList[i]);
+                monthAppointments.push(appointment);
             }
         }
     return monthAppointments;

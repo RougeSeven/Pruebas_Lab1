@@ -9,6 +9,7 @@ router.get('/profiles', async (req, res) => {
     const profiles = await UserProfile.find();
     res.json(profiles);
   } catch (err) {
+    console.log("Server Error, failed to retrieve logs!"+err.message);
     res.status(500).json({ error: 'Failed to fetch profiles' });
   }
 });

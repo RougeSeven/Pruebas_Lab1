@@ -1,7 +1,7 @@
 const express = require('express');
 const account = require('../models/Account');
 const bcrypt = require('bcrypt');
-const crypto=require('crypto');
+const crypto=require('node:crypto');
 const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('../middleware/authenticateToken'); // ✅ añadido
 const router = express.Router();
@@ -12,6 +12,7 @@ router.get('/accounts', authenticateToken, async (req, res) => {
     const accounts = await account.find();
     res.json(accounts);
   } catch (err) {
+    console.log("Server Error, account information could not be returned!");
     res.status(500).json({ error: 'Error al obtener las cuentas' });
   }
 });
@@ -21,6 +22,7 @@ router.get('/account/:id', authenticateToken, async (req, res) => {
     const accounts = await account.findOne({ accountId: req.params.id });
     res.json(accounts);
   } catch (err) {
+    console.log("Server Error, account information could not be returned!");
     res.status(500).json({ message: err.message });
   }
 });
@@ -40,6 +42,7 @@ router.put('/accounts/update/:id', authenticateToken, async (req, res) => {
     );
     res.status(200).json(update);
   } catch (err) {
+    console.log("Server Error, account information could not be updated!");
     res.status(500).json({ message: err.message });
   }
 });
@@ -144,6 +147,7 @@ router.post('/accounts/sendRecoveryEmail', async (req, res) => {
     console.log(`Enviar correo a ${email} con token: ${reset_token}`);
     res.status(200).json({ message: 'Recovery email sent' });
   } catch (err) {
+    console.log("Server Error, recovery email could not be sent!");
     res.status(500).json({ error: 'Error al enviar correo de recuperación' });
   }
 });
