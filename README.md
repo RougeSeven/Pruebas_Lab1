@@ -1,0 +1,1 @@
+[![Quality Gate Status](http://localhost:9000/api/project_badges/measure?project=lab1_pruebas_Lopez_Pareja_Tipan&metric=alert_status&token=sqb_0904a516031bd683e7ea6ff63266d23ed4410712)](http://localhost:9000/dashboard?id=lab1_pruebas_Lopez_Pareja_Tipan)
