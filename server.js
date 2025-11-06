@@ -61,21 +61,17 @@ app.use('/auth', authRoutes);
 
 // Conexión a MongoDB y arranque del servidor
 
-async function connectToDB()
-{
-  try{
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log("Conectado a la base de datos MongoDB Atlas");
-    app.listen(process.env.PORT || 3000, 
-      () =>{
-        console.log(`Servidor ejecutandose en el puerto ${process.env.PORT}`);
-      }
-    );
-  }
-  catch(err)
-  {
-    console.error("Error al conectarse a la base de datos",err);
-  }
-}
 
-connectToDB();
+try{
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("Conectado a la base de datos MongoDB Atlas");
+  app.listen(process.env.PORT || 3000, 
+    () =>{
+      console.log(`Servidor ejecutandose en el puerto ${process.env.PORT}`);
+    }
+  );
+}
+catch(err)
+{
+  console.error("Error al conectarse a la base de datos",err);
+}
