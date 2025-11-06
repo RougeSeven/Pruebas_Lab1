@@ -13,6 +13,7 @@ router.get('/accounts', authenticateToken, async (req, res) => {
     res.json(accounts);
   } catch (err) {
     console.log("Server Error, account information could not be returned!");
+    console.log("Error details: "+err.message);
     res.status(500).json({ error: 'Error al obtener las cuentas' });
   }
 });
@@ -148,6 +149,7 @@ router.post('/accounts/sendRecoveryEmail', async (req, res) => {
     res.status(200).json({ message: 'Recovery email sent' });
   } catch (err) {
     console.log("Server Error, recovery email could not be sent!");
+    console.log("Error details: "+err.message);
     res.status(500).json({ error: 'Error al enviar correo de recuperación' });
   }
 });

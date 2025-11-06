@@ -13,6 +13,7 @@ router.get('/account/:accountId/appointments', authenticateToken, async (req, re
     res.status(200).json(appointmentList);
   } catch (err) {
     console.log("Server Error, no data returned!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al intentar recuperar los pendientes' });
   }
 });
@@ -27,6 +28,7 @@ router.get('/account/:accountId/appointment/:id', authenticateToken, async (req,
     }
   } catch (err) {
     console.log("Server Error, no appointment data returned!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al buscar el pendiente' });
   }
 });
@@ -45,6 +47,7 @@ router.post("/appointment", authenticateToken, async (req, res) => {
     res.status(201).json(insertedAppointment);
   } catch (err) {
     console.log("Server Error, no appointment could not be created!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al crear el pendiente' });
   }
 });
@@ -61,6 +64,7 @@ router.put("/appointment/:id", authenticateToken, async (req, res) => {
     res.status(200).json(update);
   } catch (err) {
     console.log("Server Error, appointment could not be updated!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al actualizar el pendiente' });
   }
 });
@@ -71,6 +75,7 @@ router.delete('/appointment/:id', authenticateToken, async (req, res) => {
     res.status(200).json(appointmentDeleted);
   } catch (err) {
     console.log("Server Error, failed to delete appointment!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al eliminar el pendiente' });
   }
 });
@@ -81,6 +86,7 @@ router.get('/account/:accountId/appointments/:year/:month', authenticateToken, a
     res.status(200).json(monthAppointments);
   } catch (err) {
     console.log("Server Error, could not retrieve calendar!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al recuperar el calendario' });
   }
 });
@@ -95,6 +101,7 @@ router.get('/account/:accountId/appointments/week', authenticateToken, async (re
     }
   } catch (err) {
     console.log("Server Error, could not retrieve calendar!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al recuperar el calendario' });
   }
 });
@@ -109,6 +116,7 @@ router.get('/account/:accountId/appointments/close', authenticateToken, async (r
     }
   } catch (err) {
     console.log("Server Error, could not retrieve appointments!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al recuperar los pendientes próximos' });
   }
 });
@@ -123,6 +131,7 @@ router.post('/appointment/:id/reminder', authenticateToken, async (req, res) => 
       res.status(201).json({ message: 'Recordatorio creado con éxito' });
     } catch (err) {
       console.log("Server Error, failed to create reminder!");
+      console.error("Error details: "+err.message);
       res.status(500).json({ message: "Error al crear el recordatorio" });
     }
   }

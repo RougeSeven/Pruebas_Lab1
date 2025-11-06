@@ -11,6 +11,7 @@ router.get('/qualifications', async (req, res) => {
     res.json(qualifications);
   } catch (err) {
     console.log("Server Error, failed to retrieve qualifications!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Failed to fetch qualifications' });
   }
 });

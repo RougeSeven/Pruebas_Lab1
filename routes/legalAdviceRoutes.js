@@ -10,6 +10,7 @@ router.get('/adviceList', async (req, res) => {
     res.status(200).json(legalAdviceList);
   } catch (err) {
     console.log("Server Error, failed to retrieve legal tips!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al recuperar los tips legales' });
   }
 });
@@ -23,6 +24,7 @@ router.get('/legalAdvice/:id', async (req, res) => {
       : res.status(404).json({ error: 'Tip no encontrado' });
   } catch (err) {
     console.log("Server Error, failed to find tip!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al buscar el tip' });
   }
 });
@@ -39,6 +41,7 @@ router.post("/legalAdvice", authenticateToken, async (req, res) => {
     res.status(201).json(insertedLegalAdvice);
   } catch (err) {
     console.log("Server Error, could not create tip!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al crear el tip' });
   }
 });
@@ -58,6 +61,7 @@ router.put("/legalAdvice/:id", authenticateToken, async (req, res) => {
     res.status(200).json(update);
   } catch (err) {
     console.log("Server Error, could not update tip!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al actualizar el tip' });
   }
 });
@@ -69,6 +73,7 @@ router.delete('/legalAdvice/:id', authenticateToken, async (req, res) => {
     res.status(200).json(legalAdviceDeleted);
   } catch (err) {
     console.log("Server Error, could not delete tip!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al eliminar el tip' });
   }
 });
@@ -82,6 +87,7 @@ router.get("/legalAdvice/:id/attachment", authenticateToken, async (req, res) =>
     res.status(200).send(linkedText);
   } catch (err) {
     console.log("Server Error, failed to attach tip!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al vincular el tip' });
   }
 });

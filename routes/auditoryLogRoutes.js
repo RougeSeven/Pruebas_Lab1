@@ -11,6 +11,7 @@ router.get('/auditoryLogs', async (req, res) => {
     res.status(200).json(activityLogs);
   } catch (err) {
     console.log("Server Error, failed to retrieve logs!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al recuperar los registros de actividad' });
   }
 });
@@ -25,6 +26,7 @@ router.get('/auditoryLog/:id', async (req, res) => {
     }
   } catch (err) {
     console.log("Server Error, could not retrieve log!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al buscar el registro' });
   }
 });
@@ -39,6 +41,7 @@ router.get('/auditoryLogs/user/:id', async (req, res) => {
     }
   } catch (err) {
     console.log("Server Error, failed to find logs!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al buscar los registros' });
   }
 });
@@ -53,6 +56,7 @@ router.get('/auditoryLogs/process/:id', async (req, res) => {
     }
   } catch (err) {
     console.log("Server Error, failed to find log!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ error: 'Error al buscar el registro' });
   }
 });
@@ -72,6 +76,7 @@ router.post('/auditoryLog', authenticateToken, async (req, res) => {
     res.status(201).json(insertedLog);
   } catch (err) {
     console.log("Server Error, failed to create log!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: err.message });
   }
 });
@@ -89,6 +94,7 @@ router.put('/auditoryLog/:id', authenticateToken, async (req, res) => {
     res.status(201).json(updatedLog);
   } catch (err) {
     console.log("Server Error, failed to update log!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al actualizar el log' });
   }
 });
@@ -99,6 +105,7 @@ router.delete('/auditoryLog/:id', authenticateToken, async (req, res) => {
     res.status(201).json({ message: 'Log eliminado con éxito.' }, deleteConfirmation);
   } catch (err) {
     console.log("Server Error, failed to delete log!");
+    console.error("Error details: "+err.message);
     res.status(500).json({ message: 'Error al eliminar el log' });
   }
 });
